@@ -19,6 +19,8 @@ namespace WFPTabControl
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext= App.Current.Services.GetService<MainViewModel>();
         }
     }
+
 }
