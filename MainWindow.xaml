@@ -8,42 +8,36 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
-
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="文件">
-                <MenuItem Header="新建标签1" Command="{Binding NewTabCommand}" CommandParameter="文档1"/>
-                <MenuItem Header="新建标签2" Command="{Binding NewTabCommand}" CommandParameter="文档2"/>
-            </MenuItem>
-        </Menu>
+     <Menu DockPanel.Dock="Top">
+         <MenuItem Header="文件">
+             <MenuItem Header="Page1" Command="{Binding OpenPage1Command}" />
+             <MenuItem Header="Page2" Command="{Binding OpenPage2Command}" />
+         </MenuItem>
+     </Menu>
 
-        <TabControl ItemsSource="{Binding Tabs}" 
-                    SelectedItem="{Binding SelectedTab}"
-                    BorderThickness="0"
-                    Background="Transparent">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel>
-                        <TextBlock Text="{Binding Header}" Margin="0,0,5,0"/>
-                        <Button Content="×" 
-                                Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                CommandParameter="{Binding}"
-                                DockPanel.Dock="Right"
-                                Background="Transparent"
-                                BorderThickness="0"/>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                            <TextBlock 
-                                Text="{Binding Content}"
-                                Margin="5"
-                                TextWrapping="Wrap"
-                                MaxHeight="300" />
-                        </ScrollViewer>
-                    </DockPanel>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-        </TabControl>
-    </DockPanel>
+     <TabControl ItemsSource="{Binding Tabs}" 
+                 SelectedItem="{Binding SelectedTab}"
+                 BorderThickness="0"
+                 Background="Transparent">
+         <TabControl.ItemTemplate>
+             <DataTemplate>
+                 <DockPanel>
+                     <TextBlock Text="{Binding Header}" Margin="0,0,5,0"/>
+                     <Button Content="×" 
+                             Command="{Binding CloseCommand}"
+                             DockPanel.Dock="Right"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                 </DockPanel>
+             </DataTemplate>
+         </TabControl.ItemTemplate>
+         <TabControl.ContentTemplate>
+             <DataTemplate DataType="domain:TabItemViewModel">
+                 <ContentPresenter Content="{Binding Content, Mode=TwoWay}" />
+             </DataTemplate>
+         </TabControl.ContentTemplate>
+     </TabControl>
+ </DockPanel>
 </Window>
+
